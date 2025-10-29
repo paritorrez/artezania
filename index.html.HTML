@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artesanía</title>
+    <meta name="description" content="Artesanía hecha a mano con amor. Descubre nuestros productos únicos y contáctanos para más información.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+        .carousel img.active {
+            display: block;
+            opacity: 1;
+        }
+        .indicators {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: #bbb;
+            cursor: pointer;
+        }
+        .indicator.active {
+            background-color: #4CAF50;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .testimonials {
+            margin: 20px 0;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        .testimonial {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .faq {
+            margin: 20px 0;
+        }
+        .faq-item {
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+        .faq-item:hover {
+            background-color: #f1f1f1;
+        }
+        .faq-answer {
+            display: none;
+            margin-top: 5px;
+            padding: 10px;
+            border-left: 3px solid #4CAF50;
+            background-color: #f9f9f9;
+        }
+        .contact-form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Estilo para la sección de blog */
+        .blog {
+            margin: 20px 0;
+        }
+        .blog-post {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+        .blog-post:hover {
+            background-color: #f1f1f1;
+        }
+        /* Estilo para el botón flotante */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            display: none; /* Oculto por defecto */
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        .back-to-top:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BIENVENIDOS A LA TIENDA DE ARTESANIAS “SONIA”</h1>
+        <p>crear y ofrecer productos artesanales únicos que reflejen la riqueza de nuestras tradiciones culturales y el talento de nuestros artesanos ,Artesanía hecha a mano con amor</p>
+    </header>
+    <nav>
+        <a href="#about" onclick="scrollToSection(event, 'about')">Inicio</a>
+        <a href="#about" onclick="scrollToSection(event, 'about')">Quienes somos</a>
+        <a href="id="products"" onclick="scrollToSection(event, 'products')">Productos</a>
+        <a href="#testimonials" onclick="scrollToSection(event, 'testimonials')">Testimonios</a>
+        <a href="#faq" onclick="scrollToSection(event, 'faq')">Preguntas Frecuentes</a>
+        <a href="#contact" onclick="scrollToSection(event, 'contact')">Contacto </a>
+    </nav>
+    <div class="container">
+        <section id="about">
+            <h2>Sobre Nuestra Artesanía</h2>
+            <p>En ARTESANIAS “SONIA”, somos un grupo de apasionados artesanos dedicados a crear piezas únicas que reflejan la belleza y la riqueza de nuestras tradiciones culturales. Fundada en 1993, nuestra empresa nace del deseo de preservar y promover el arte de la artesanía, brindando a nuestros clientes productos que no solo son funcionales, sino también llenos de significado y autenticidad.</p>
+        </section>
+
+        <section id="carousel" width="300" height="200">
+            <h2>Galería de Imágenes</h2>
+            <div class="carousel">
+                <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/artesania1.jpeg" alt="Artesanía 1" class="active">
+                <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/artesania2.jpeg" alt="Artesanía 2" alt="Artesanía 2">
+                <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/artesania3.jpeg" alt="Artesanía 3" alt="Artesanía 3">
+            </div>
+            <div class="indicators">
+                <span class="indicator active" onclick="showSlide(0)"></span>
+                <span class="indicator" onclick="showSlide(1)"></span>
+                <span class="indicator" onclick="showSlide(2)"></span>
+            </div>
+            <button onclick="prevSlide()">&#10094;</button>
+            <button onclick="nextSlide()">&#10095;</button>
+        </section>
+
+        <section id="products">
+            <h2>Nuestros Productos</h2>
+            <input type="text" id="filterInput" placeholder="Buscar productos..." onkeyup="filterProducts()">
+            <div class="products" id="productList">
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro1.jpeg" alt="Producto 1">
+                    <h3>Producto 1</h3>
+                </div>
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro2.jpeg" alt="Producto 2">
+                    <h3>Producto 2</h3>
+                </div>
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro3.jpeg" alt="Producto 3">
+                    <h3>Producto 3</h3>
+                </div>
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro4.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                </div>
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro5.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                </div>
+                <div class="product">
+                    <img src="file:///C:\Users\MI PC\Desktop\ARTESANIA/pro6.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <h2>Testimonios</h2>
+            <div class="testimonials">
+                <div class="testimonial">"Me encanta la calidad y el diseño de las piezas. ¡Son únicas!" - Cliente Satisfecho</div>
+                <div class="testimonial">"Un regalo perfecto para mis seres queridos." - Cliente Feliz</div>
+                <div class="testimonial">"Siempre vuelvo por más, ¡no puedo resistirme!" - Cliente Recurrente</div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="faq">
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <strong>¿Cómo se realizan las entregas?</strong>
+                    <div class="faq-answer">Realizamos envíos a todo el país mediante servicios de mensajería.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <strong>¿Puedo personalizar un pedido?</strong>
+                    <div class="faq-answer">Sí, ofrecemos opciones de personalización en algunos productos.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <strong>¿Qué métodos de pago aceptan?</strong>
+                    <div class="faq-answer">Aceptamos tarjetas de crédito, débito y pagos en efectivo.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog">
+            <h2>Blog</h2>
+            <div class="blog">
+                <div class="blog-post">
+                    <h3>La Importancia de la Artesanía</h3>
+                    <p>La artesanía no solo es un arte, sino también una forma de preservar la cultura y tradiciones...</p>
+                </div>
+                <div class="blog-post">
+                    <h3>Cómo Elegir el Regalo Perfecto</h3>
+                    <p>Elegir un regalo puede ser complicado. Aquí te damos algunos consejos para que elijas el mejor...</p>
+                </div>
+                <div class="blog-post">
+                    <h3>Los Materiales Detrás de Nuestras Creaciones</h3>
+                    <p>En este artículo, exploramos los materiales que utilizamos en nuestras creaciones y su impacto...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contáctanos</h2>
+            <div class="contact-form">
+                <form action="#" method="post" onsubmit="return validateForm()">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </section>
+
+        
+    </div>
+    <footer>
+        <p></p>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <button class="back-to-top" onclick="scrollToTop()" title="Regresar al inicio">&#8679;</button>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                indicators[i].classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                    indicators[i].classList.add('active');
+                }
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            if (name === "" || email === "" || message === "") {
+                alert("Por favor, completa todos los campos.");
+                return false;
+            }
+            return true;
+        }
+
+        function toggleFAQ(element) {
+            const answer = element.querySelector('.faq-answer');
+            answer.style.display = answer.style.display === "block" ? "none" : "block";
+        }
+
+        function filterProducts() {
+            const filter = document.getElementById('filterInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const title = product.querySelector('h3').innerText.toLowerCase();
+                if (title.includes(filter)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function scrollToSection(event, sectionId) {
+            event.preventDefault(); // Evitar el comportamiento por defecto del enlace
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mostrar u ocultar el botón "Regresar al inicio"
+        window.onscroll = function() {
+            const button = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Inicializar el carrusel
+        showSlide(currentSlide);
+
+        // Cargar el mapa de Google Maps (reemplaza YOUR_API_KEY y la ubicación deseada)
+        function initMap() {
+            const location = { lat: -16.5000, lng: -68.1193 }; // Ejemplo de ubicación
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+            });
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
